@@ -1,0 +1,27 @@
+\section{Task Description}
+\label{task}
+
+Use the Diabetes 130-US hospitals for years 1999-2008 Data Set. This dataset contains
+records with 55 features for more than 100000 patients. 55 features include information
+about the diabetic encounters, including demographics, diagnoses, diabetic medications,
+number of visits in the year preceding the encounter, and payer information. Note that
+even though some attributes are codified using numeric values, they are nominal (not
+numeric) attributes. Browse additional information about the attributes in the paper
+cited on the dataset website. The goal of this assignment is to find suitable methods in the area of machine learning to determine the readmission attribute of a patient and to estimate the quality of selected approaches.
+
+In order to achieve this goal, the following tasks have to be completed:
+\begin{itemize}
+	\item[\textbullet] analyse the data set and its various attributes
+	\item[\textbullet] clean the data (e.g. missing values)
+	\item[\textbullet] select an appropriate subset of the attributes and explain your choice
+	\item[\textbullet] use different suitable machine learning algorithms (either implement them, or use existing libraries, e.g. Weka)
+
+	\item[\textbullet] determine the quality of your model (e.g. through cross-validation, log loss3, confusion matrix)
+	\item[\textbullet] compare your results between different algorithms
+\end{itemize}
+
+Specifically, different suitable machine learning algorithms should include:
+\begin{itemize}
+	\item[\textbullet] at least two classification algorithms, one of which, SVM, you learn during the course
+	\item[\textbullet] at least one algorithm for semi-supervised classification. Use a part of the dataset	as unlabeled data for learning (omit the label)
+\end{itemize}
