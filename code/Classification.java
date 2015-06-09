@@ -28,7 +28,7 @@ import libsvm.svm;
  *
  * @version 1.0
  */
-public class main {
+public class Classification {
 
 	/**
 	 * classification
