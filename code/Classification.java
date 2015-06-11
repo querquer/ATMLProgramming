@@ -12,14 +12,17 @@ import weka.core.converters.ArffSaver;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.*;
 import weka.filters.unsupervised.instance.*;
+import weka.classifiers.CollectiveEvaluation;
 import weka.classifiers.Evaluation;
 import weka.classifiers.bayes.NaiveBayes;
+import weka.classifiers.collective.meta.YATSI;
 import weka.classifiers.functions.LibSVM;
 import weka.classifiers.functions.SMO;
+import weka.classifiers.functions.supportVector.NormalizedPolyKernel;
 import weka.classifiers.lazy.IBk;
 import weka.classifiers.rules.DecisionTable;
 import weka.classifiers.rules.ZeroR;
-import libsvm.svm;
+
 
 /**
  * ATML Programming Task
@@ -42,15 +45,35 @@ public class Classification {
 	protected static void classify(Instances data) throws Exception {
 		System.out.println("\n2. Classification");
 
+		NonSparseToSparse sparseFilter = new NonSparseToSparse();
+		sparseFilter.setInputFormat(data);
+		data = Filter.useFilter(data, sparseFilter);
+		
 		// Validation - Percentage Split
-		RemovePercentage filter = new RemovePercentage();
-		filter.setInputFormat(data);
+		data.randomize(new Random(1));
+		int trainSize = (int) Math.round(data.numInstances() * 0.8);
+		int testSize = data.numInstances() - trainSize;
+		
+		Instances train = new Instances(data, 0, trainSize - 1);
+		Instances test = new Instances(data, trainSize, testSize);
 
-		filter.setPercentage(80.0);
-		Instances train = Filter.useFilter(data, filter);
-
-		filter.setInvertSelection(true);
-		Instances test = Filter.useFilter(data, filter);
+		
+		
+//		RemovePercentage filter = new RemovePercentage();
+//		filter.setInputFormat(data);
+//
+//		filter.setPercentage(20.0);
+//		Instances train = Filter.useFilter(data, filter);
+//
+////		filter.setPercentage(20.0);
+//		filter.setInputFormat(data);
+//		filter.setInvertSelection(true);
+//		Instances test = Filter.useFilter(data, filter);
+//		System.out.println("Train: " + train.numInstances());
+//		System.out.println("Test: " + test.numInstances());
+//		
+//		System.out.println(train.checkInstance(test.get(10)));
+		
 
 		// Validation - Cross Validation
 		int folds = 10;
@@ -70,71 +93,56 @@ public class Classification {
 																// matrix
 
 		System.out.println("-----------     Cross Validation     -----------");
-		Evaluation evalCrossNaiveBayes = new Evaluation(data); // init
-																// evaluation
-		evalCrossNaiveBayes.crossValidateModel(classifierNaiveBayes, data, folds, seed); // evaluate
-																							// classifier
-		System.out.println(evalCrossNaiveBayes.toSummaryString()); // print
-																	// summary
-		System.out.println(evalCrossNaiveBayes.toMatrixString()); // print
-																	// confusion
-																	// matrix
+		Evaluation evalCrossNaiveBayes = new Evaluation(data); // init evaluation
+		evalCrossNaiveBayes.crossValidateModel(classifierNaiveBayes, data, folds, seed); // evaluate classifier
+		System.out.println(evalCrossNaiveBayes.toSummaryString()); // print summary
+		System.out.println(evalCrossNaiveBayes.toMatrixString()); // print confusion matrix
+//
+//		// Ib1
+//		System.out.println("#######################################   Ib1     #######################################");
+//		IBk classifierIbk = new IBk(); // init classifier
+//		classifierIbk.buildClassifier(train); // build classifier
+//
+//		System.out.println("-----------     Percentage Split     -----------");
+//		 Evaluation evalIbk = new Evaluation(test); // init evaluation
+//		 evalIbk.evaluateModel(classifierIbk, test); // evaluate classifier
+//		 System.out.println(evalIbk.toSummaryString()); // print summary
+//		 System.out.println(evalIbk.toMatrixString()); // print confusion matrix
+//
+//		 System.out.println("-----------     Cross Validation     -----------");
+//		 Evaluation evalCrossIbk = new Evaluation(data); // init evaluation
+//		 evalCrossIbk.crossValidateModel(classifierIbk, data, folds, seed); //
+//		 System.out.println(evalCrossIbk.toSummaryString()); // print summary
+//		 System.out.println(evalCrossIbk.toMatrixString()); // print confusion matrix
 
-		// Ib1
-		System.out.println("#######################################   Ib1     #######################################");
-		IBk classifierIbk = new IBk(); // init classifier
-		classifierIbk.buildClassifier(train); // build classifier
-
-		System.out.println("-----------     Percentage Split     -----------");
-		// Evaluation evalIbk = new Evaluation(test); // init evaluation
-		// evalIbk.evaluateModel(classifierIbk, test); // evaluate classifier
-		// System.out.println(evalIbk.toSummaryString()); // print summary
-		// System.out.println(evalIbk.toMatrixString()); // print confusion
-		// matrix
-
-		// System.out.println("-----------     Cross Validation     -----------");
-		// Evaluation evalCrossIbk = new Evaluation(data); // init evaluation
-		// evalCrossIbk.crossValidateModel(classifierIbk, data, folds, seed); //
-		// evaluate classifier
-		// System.out.println(evalCrossIbk.toSummaryString()); // print summary
-		// System.out.println(evalCrossIbk.toMatrixString()); // print confusion
-		// matrix
-
-		// ZeroR
-		System.out.println("#######################################   ZeroR     #######################################");
-		ZeroR classifierZeroR = new ZeroR(); // init classifier
-		classifierZeroR.buildClassifier(train); // build classifier
-
-		System.out.println("-----------     Percentage Split     -----------");
-		Evaluation evalZeroR = new Evaluation(test); // init evaluation
-		evalZeroR.evaluateModel(classifierZeroR, test); // evaluate classifier
-		System.out.println(evalZeroR.toSummaryString()); // print summary
-		System.out.println(evalZeroR.toMatrixString()); // print confusion
-														// matrix
-
-		System.out.println("-----------     Cross Validation     -----------");
-		Evaluation evalCrossZeroR = new Evaluation(data); // init evaluation
-		evalCrossZeroR.crossValidateModel(classifierZeroR, data, folds, seed); // evaluate
-																				// classifier
-		System.out.println(evalCrossZeroR.toSummaryString()); // print summary
-		System.out.println(evalCrossZeroR.toMatrixString()); // print confusion
-																// matrix
-
-		// DecisionTable
-		System.out.println("#######################################   DecisionTable     #######################################");
-		DecisionTable classifierDecisionTable = new DecisionTable(); // init
-																		// classifier
-		classifierDecisionTable.buildClassifier(train); // build classifier
-
-		System.out.println("-----------     Percentage Split     -----------");
-		Evaluation evalDecisionTable = new Evaluation(test); // init evaluation
-		evalDecisionTable.evaluateModel(classifierDecisionTable, test); // evaluate
-																		// classifier
-		System.out.println(evalDecisionTable.toSummaryString()); // print
-																	// summary
-		System.out.println(evalDecisionTable.toMatrixString()); // print
-																// confusion
-																// matrix
+//		// ZeroR
+//		System.out.println("#######################################   ZeroR     #######################################");
+//		ZeroR classifierZeroR = new ZeroR(); // init classifier
+//		classifierZeroR.buildClassifier(train); // build classifier
+//
+//		System.out.println("-----------     Percentage Split     -----------");
+//		Evaluation evalZeroR = new Evaluation(test); // init evaluation
+//		evalZeroR.evaluateModel(classifierZeroR, test); // evaluate classifier
+//		System.out.println(evalZeroR.toSummaryString()); // print summary
+//		System.out.println(evalZeroR.toMatrixString()); // print confusion matrix
+//
+//		System.out.println("-----------     Cross Validation     -----------");
+//		Evaluation evalCrossZeroR = new Evaluation(data); // init evaluation
+//		evalCrossZeroR.crossValidateModel(classifierZeroR, data, folds, seed); // evaluate classifier
+//		System.out.println(evalCrossZeroR.toSummaryString()); // print summary
+//		System.out.println(evalCrossZeroR.toMatrixString()); // print confusion matrix
+//
+//		// DecisionTable
+//		System.out.println("#######################################   DecisionTable     #######################################");
+//		DecisionTable classifierDecisionTable = new DecisionTable(); // init
+//																		// classifier
+//		classifierDecisionTable.buildClassifier(train); // build classifier
+//
+//		System.out.println("-----------     Percentage Split     -----------");
+//		Evaluation evalDecisionTable = new Evaluation(test); // init evaluation
+//		evalDecisionTable.evaluateModel(classifierDecisionTable, test); // evaluate classifier
+//		System.out.println(evalDecisionTable.toSummaryString()); // print summary
+//		System.out.println(evalDecisionTable.toMatrixString()); // print confusion matrix
 
 		// System.out.println("-----------     Cross Validation     -----------");
 		// Evaluation evalCrossDecisionTable= new Evaluation(data); // init evaluation
@@ -148,11 +156,10 @@ public class Classification {
 		System.out.println("#######################################   LibSVM     #######################################");
 		LibSVM classifierSVM = new LibSVM(); // init classifier
 		classifierSVM.buildClassifier(train); // build classifier
-		SelectedTag tag2 = new SelectedTag(LibSVM.KERNELTYPE_POLYNOMIAL, LibSVM.TAGS_KERNELTYPE);
-		SelectedTag tag = new SelectedTag(LibSVM.SVMTYPE_C_SVC, LibSVM.TAGS_SVMTYPE);
-		classifierSVM.setSVMType(tag);
-		classifierSVM.setKernelType(tag2);
-		classifierSVM.setWeights("1.0 0.5 0.01");
+		SelectedTag kernelType = new SelectedTag(LibSVM.KERNELTYPE_POLYNOMIAL, LibSVM.TAGS_KERNELTYPE);
+		SelectedTag svmType = new SelectedTag(LibSVM.SVMTYPE_C_SVC, LibSVM.TAGS_SVMTYPE);
+		classifierSVM.setSVMType(svmType);
+		classifierSVM.setKernelType(kernelType);
 
 		System.out.println("-----------     Percentage Split     -----------");
 		Evaluation evalSVM = new Evaluation(test); // init evaluation
@@ -164,12 +171,16 @@ public class Classification {
 		Evaluation evalCrossSVM = new Evaluation(data); // init evaluation
 		evalCrossSVM.crossValidateModel(classifierSVM, data, folds, seed); // evaluate classifier
 		System.out.println(evalCrossSVM.toSummaryString()); // print summary
-		System.out.println(evalCrossSVM.toMatrixString()); // print confusion
-															// matrix
+		System.out.println(evalCrossSVM.toMatrixString()); // print confusion matrix
 		
 		// SMO
 //		System.out.println("#######################################   SMO     #######################################");
 //		SMO classifierSMO = new SMO();
+////		classifierSMO.setChecksTurnedOff(true);
+//		classifierSMO.setBuildLogisticModels(true);
+//		classifierSMO.setKernel(new NormalizedPolyKernel());
+//		
+//		//filter data nontosparse
 //		classifierSMO.buildClassifier(train);
 //
 //		System.out.println("-----------     Percentage Split     -----------");
@@ -185,39 +196,30 @@ public class Classification {
 //		System.out.println(evalCrossSMO.toMatrixString()); // print confusion matrix
 
 		// YATSI
-//		System.out.println("#######################################   YATSI     #######################################");
-//
-//		// Validation - Percentage Split
-//		RemovePercentage unlabeled_filter = new RemovePercentage();
-//		unlabeled_filter.setInputFormat(train);
-//
-//		unlabeled_filter.setPercentage(50.0);
-//		Instances train_labeled = Filter.useFilter(train, unlabeled_filter);
-//
-//		unlabeled_filter.setInvertSelection(true);
-//		Instances train_unlabeled = Filter.useFilter(train, unlabeled_filter);
-//
-//		YATSI classifierYATSI = new YATSI(); // init classifier
-//		classifierYATSI.setKNN(15);
-//		classifierYATSI.setNoWeights(false);
-//		classifierYATSI.buildClassifier(train_labeled, train_unlabeled); // build
-//																			// classifier
-//
-//		System.out.println("-----------     Percentage Split     -----------");
-//		CollectiveEvaluation evalYATSI = new CollectiveEvaluation(data); // init
-//																			// evaluation
-//		evalYATSI.evaluateModel(classifierYATSI, train); // evaluate classifier
-//		System.out.println(evalYATSI.toSummaryString()); // print summary
-//		System.out.println(evalYATSI.toMatrixString()); // print confusion
-//														// matrix
-//
-//		System.out.println("-----------     Cross Validation     -----------");
-//		CollectiveEvaluation evalCrossYATSI = new CollectiveEvaluation(data); // init
-//																				// evaluation
-//		evalCrossYATSI.crossValidateModel(classifierYATSI, train, folds, seed); // evaluate
-//																				// classifier
-//		System.out.println(evalCrossYATSI.toSummaryString()); // print summary
-//		System.out.println(evalCrossYATSI.toMatrixString()); // print confusion matrix
+		System.out.println("#######################################   YATSI     #######################################");
+
+		int labeledSize = (int) Math.round(train.numInstances() * 0.5);
+		int unlabeledSize = train.numInstances() - labeledSize;
+		
+		Instances trainLabeled = new Instances(train, 0, labeledSize - 1);
+		Instances trainUnlabeled = new Instances(train, labeledSize, unlabeledSize);
+		
+		YATSI classifierYATSI = new YATSI(); // init classifier
+		classifierYATSI.setKNN(15);
+		classifierYATSI.setNoWeights(false);
+		classifierYATSI.buildClassifier(trainLabeled, trainUnlabeled); // build classifier
+
+		System.out.println("-----------     Percentage Split     -----------");
+		CollectiveEvaluation evalYATSI = new CollectiveEvaluation(data); // init evaluation
+		evalYATSI.evaluateModel(classifierYATSI, test); // evaluate classifier
+		System.out.println(evalYATSI.toSummaryString()); // print summary
+		System.out.println(evalYATSI.toMatrixString()); // print confusion matrix
+
+		System.out.println("-----------     Cross Validation     -----------");
+		CollectiveEvaluation evalCrossYATSI = new CollectiveEvaluation(data); // init evaluation
+		evalCrossYATSI.crossValidateModel(classifierYATSI, data, folds, seed); // evaluate classifier
+		System.out.println(evalCrossYATSI.toSummaryString()); // print summary
+		System.out.println(evalCrossYATSI.toMatrixString()); // print confusion matrix
 
 	}
 
@@ -237,8 +239,7 @@ public class Classification {
 		// attribute payer_code, removed
 		Remove remove = new Remove(); // new instance of filter
 		remove.setAttributeIndicesArray(new int[] { 0, 1, 5, 10, 18, 19, 20, 25, 26, 27, 32, 35, 36, 37, 38, 39, 40, 42, 43, 44, 45, 46 });
-		remove.setInputFormat(data); // inform filter about dataset **AFTER**
-										// setting options
+		remove.setInputFormat(data); // inform filter about dataset **AFTER** setting options
 
 		Instances data_removed = Filter.useFilter(data, remove); // apply filter
 
@@ -250,18 +251,16 @@ public class Classification {
 
 		ReplaceMissingValues replace = new ReplaceMissingValues();
 		replace.setInputFormat(data_removed);
-		data_removed_and_replaced = Filter.useFilter(data_removed, replace); // apply
-																				// filter
+		data_removed_and_replaced = Filter.useFilter(data_removed, replace); // apply filter
 
 		return data_removed_and_replaced;
 
 	}
-
+	
 	/**
 	 * evenClasses
 	 *
-	 * @param original
-	 *            data
+	 * @param original data
 	 */
 	protected static void evenClasses(Instances data) throws Exception {
 
@@ -367,28 +366,11 @@ public class Classification {
 	}
 
 	/**
-	 * saves a dataset as .arff using weka ArffSaver
-	 *
-	 * @param dataset
-	 * @param destination
-	 *            path
-	 */
-	protected static void saveAsARFFweka(Instances data, String destPath) throws Exception {
-		System.out.println("\n1.1 Save dataset as ARFF file");
-
-		ArffSaver saver = new ArffSaver();
-		saver.setInstances(data);
-		saver.setFile(new File(destPath));
-		saver.setDestination(new File(destPath));
-		saver.writeBatch();
-	}
-
-	/**
 	 * saves a dataset as .arff using java io
 	 *
 	 * @param dataset
-	 * @param destination
-	 *            path
+	 * @param destination path
+	 *            
 	 */
 	protected static void saveAsARFFjava(Instances data, String destPath) throws Exception {
 		System.out.println("\n1.1 Save dataset as ARFF file");
@@ -399,8 +381,8 @@ public class Classification {
 	}
 
 	public static void main(String[] args) throws Exception {
-		String sourcePath_orig = "data/diabetic_data_two_classes.csv";
-		// String sourcePath_orig = "data/diabetic_data.csv";
+//		String sourcePath_orig = "data/diabetic_data_two_classes.csv";
+		 String sourcePath_orig = "data/diabetic_data.csv";
 		String sourcePath_improved = "data/data_improved.arff";
 		String sourcePath_even = "data/data_even.arff";
 		String destPath = "data/data_improved.arff";

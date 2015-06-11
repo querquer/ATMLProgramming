@@ -2,7 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="code"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/libsvm.jar"/>
-	<classpathentry kind="lib" path="lib/weka3_6_4.jar"/>
+	<classpathentry kind="lib" path="lib/collective-classification-2015.2.27.jar"/>
+	<classpathentry kind="lib" path="lib/liblibsvm.jar"/>
+	<classpathentry kind="lib" path="lib/LibSVM.jar"/>
+	<classpathentry kind="lib" path="lib/weka3.7.11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
