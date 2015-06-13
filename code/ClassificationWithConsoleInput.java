@@ -2,6 +2,7 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.Random;
+import java.util.Scanner;
 
 import weka.core.converters.ConverterUtils.DataSource;
 import weka.core.Instances;
@@ -25,15 +26,16 @@ import weka.classifiers.rules.DecisionTable;
  *
  * @version 1.0
  */
-public class Classification {
+public class ClassificationWithConsoleInput {
 
+	public enum Classifiers {
+		NAIVEBAYES, DECISIONTABLE, SVM, YATSI
+	}
+	
 	private Classifiers selectedClassifier;
 	private boolean usePercentageSplit;
 	private int trainPercentage, numFolds;
 	
-	public enum Classifiers {
-		NAIVEBAYES, DECISIONTABLE, SVM, YATSI
-	}
 	/**
 	 * classification
 	 *
@@ -47,7 +49,7 @@ public class Classification {
 		
 		// Validation - Percentage Split
 		data.randomize(new Random(1));
-		int trainSize = (int) Math.round(data.numInstances() * 0.8);
+		int trainSize = (int) Math.round(data.numInstances() * trainPercentage / 100);
 		int testSize = data.numInstances() - trainSize;
 		
 		Instances train = new Instances(data, 0, trainSize - 1);
@@ -81,12 +83,16 @@ public class Classification {
 		
 		if(selectedClassifier != Classifiers.YATSI){
 			// build classifier
-			classifier.buildClassifier(train);
 			evaluation = new CollectiveEvaluation(test);
 		}else{
-			int labeledSize = (int) Math.round(train.numInstances() * trainPercentage/100);
+			Scanner in = new Scanner(System.in);
+			System.out.println("Enter Percentag for unlabeled training data (0-100):");
+			int unlabeledTrain = in.nextInt();
+			in.close();
+			
+			//split train instances in labeled and unlabeled
+			int labeledSize = (int) Math.round(train.numInstances() * (100 - unlabeledTrain) / 100);
 			int unlabeledSize = train.numInstances() - labeledSize;
-			Instances trainLabeled = new Instances(train, 0, labeledSize - 1);
 			Instances trainUnlabeled = new Instances(train, labeledSize, unlabeledSize);
 			
 			// build classifier
@@ -196,7 +202,7 @@ public class Classification {
 	 * @param number of folds for crossvalidation
 	 *            
 	 */
-	public Classification(Classifiers selectedClassifier, boolean usePercentageSplit, int trainPercentage, int numFolds) {
+	public ClassificationWithConsoleInput(Classifiers selectedClassifier, boolean usePercentageSplit, int trainPercentage, int numFolds) {
 		this.selectedClassifier = selectedClassifier;
 		this.usePercentageSplit = usePercentageSplit;
 		this.trainPercentage = trainPercentage;
@@ -205,6 +211,27 @@ public class Classification {
 
 	public static void main(String[] args) throws Exception {
 		String dataPath = "data/diabetic_data.csv";
+		
+		//Console menu
+		System.out.println("Select Classifier:");
+		System.out.println("1 - Naive Bayes\n2 - Decision Table\n3 - SVM\n4 - YATSI");
+		Scanner in = new Scanner(System.in);
+		int selectedClassifier = in.nextInt();
+		System.out.println("Select Evaluation Method:");
+		System.out.println("1 - Percentage Split\n2 - Cross Validation");
+		int ups = in.nextInt();
+		int split = 0, folds = 0;
+		if (ups == 1){
+			System.out.println("Select Percentage for Split (0-100):");
+			split = in.nextInt();
+		}else{
+			System.out.println("Select Number of Folds:");
+			folds = in.nextInt();
+		}
+		in.close();
+		
+		ClassificationWithConsoleInput myClassification = new ClassificationWithConsoleInput(Classifiers.values()[selectedClassifier -1], ups == 1 ? true: false, split, folds);
+		
 		
 		// Reading data
 		System.out.println("\n0. Loading data");
@@ -215,27 +242,11 @@ public class Classification {
 		if (data.classIndex() == -1)
 			data.setClassIndex(data.numAttributes() - 1);
 
-		Classification myClassification = new Classification(Classifiers.NAIVEBAYES, true, 50, 10);
-		Classification myClassification1 = new Classification(Classifiers.NAIVEBAYES, false, 50, 10);
-		Classification myClassification2 = new Classification(Classifiers.DECISIONTABLE, true, 50, 10);
-		Classification myClassification3 = new Classification(Classifiers.DECISIONTABLE, false, 50, 10);
-		Classification myClassification4 = new Classification(Classifiers.SVM, true, 50, 10);
-		Classification myClassification5 = new Classification(Classifiers.SVM, false, 50, 10);
-		Classification myClassification6 = new Classification(Classifiers.YATSI, true, 50, 10);
-		Classification myClassification7 = new Classification(Classifiers.YATSI, false, 50, 10);
-
 		// Preprocessing
 		Instances data_improved = preprocessing(data);
 		System.out.println(data_improved.toSummaryString());
 		
-//		myClassification.classify(data_improved);
-//		myClassification1.classify(data_improved);
-//		myClassification2.classify(data_improved);
-//		myClassification3.classify(data_improved);
-//		myClassification4.classify(data_improved);
-//		myClassification5.classify(data_improved);
-		myClassification6.classify(data_improved);
-		myClassification7.classify(data_improved);
+		myClassification.classify(data_improved);
 	}
 
 	/**
