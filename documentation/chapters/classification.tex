@@ -6,7 +6,7 @@ Was istr das problem?
 
 
 welche vorgaben?
-Specifically, different suitable machine learning algorithms should include:
+minimum
 \begin{itemize}
 	\item[\textbullet] algorithm based on SVM
 	\item[\textbullet] algorithm for semi-supervised classification
@@ -18,40 +18,48 @@ overview of:
 used classifier
 
 NaiveBayes
+
+
+
+
+DecisionTable
 LibSVM
 YATSI
 
 
 
 used evaluation methots
-
-Percentage Split with 80\% as for training and 20\% for testing
-Cross-Validation with 10 folds
-
-
-
-während der durchsicht der ergebniise ist uns aufgefallen dass die ergebisse bei vielen classification
-diese ansätze werden in \ref{ocp}
+ 
+ 
+\textbf{Percentage Split} - used with \\
+\textbf{Cross-Validation} - used with 10 folds\\
 
 
+während der durchsicht der ergebniise ist uns aufgefallen dass die ergebisse bei vielen classificatoren alle instanzen in eine classe classifizierten. das problem entsteht daraus dass die anzahl der insanzen zwischen der classen stark variiert.
+UM dieses problem zu reduzierten haben wir zwei ansätzen ausprobiert die in section \nameref{ocp}
+vorgestellt werden.
 
-\begin{itemize}
-	\item[\textbullet] used data set
-	\item[\textbullet] used classifier(with configuration)
-	\item[\textbullet] used evaluation method(with configuration)
-	\item[\textbullet] numbers(correct in generell, for each class)
-\end{itemize}
+
 
 
 
 \begin{table}[h]
-\tbl{Ergebnisse der Klassifikation des IBK und RandomForest}{%
-\begin{tabular}{ | l | l | l | l |}\hline
-    Set 		& Algorithm & Evaluation & Result  \\ \hline 
-    set & SVM\%  & Percentage Split\%  & 52\% \\ \hline 
+\tbl{Classifier result for each evaluation method}{%
+\begin{tabular}{ | l | l | l |}\hline
+    Algorithm & Evaluation & Correctly Classified  \\ \hline 
+    NaiveBayes\%  & Split\%  & 57.32\% \\ \hline 
+    NaiveBayes\%  & Cross-Validation\%  & 57.14\% \\ \hline 
+    DecisionTable\%  & Split\%  &  57.53\% \\ \hline 
+    DecisionTable\%  & Cross-Validation\%  & 57.75\% \\ \hline 
+    SVM\%  & Split\%  & -\% \\ \hline 
+    SVM\%  & Cross-Validation\%  & -2\% \\ \hline     
+    YATSI\%  & Split\%  & -\% \\ \hline 
+    YATSI\%  & Cross-Validation\%  & -\% \\ \hline 
+    
 \end{tabular}}
 \label{table:resultsClassifiers}
 \end{table}
 
+results mit alle in 1 klasse
 
 explain the results
