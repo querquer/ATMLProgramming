@@ -204,8 +204,8 @@ public class ClassificationWithConsoleInput {
 		this.unlabeledTrain = unlabeledTrain;
 	}
 
-	public static void main(String[] args) throws Exception {
-		String dataPath = "data/diabetic_data.csv";
+	public static void main(String[] args) throws Exception{
+		String dataPath = "./diabetic_data.csv";
 		
 		//Console menu
 		System.out.println("Select Classifier:");
@@ -237,8 +237,11 @@ public class ClassificationWithConsoleInput {
 		
 		// Reading data
 		System.out.println("\n0. Loading data");
-		DataSource source = new DataSource(dataPath);
-		Instances data = source.getDataSet();
+		DataSource source;
+		Instances data = null;
+		source = new DataSource(dataPath);
+		data = source.getDataSet();
+		
 		System.out.println(data.toSummaryString());
 
 		if (data.classIndex() == -1)
