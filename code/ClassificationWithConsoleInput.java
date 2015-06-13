@@ -34,15 +34,13 @@ public class ClassificationWithConsoleInput {
 	
 	private Classifiers selectedClassifier;
 	private boolean usePercentageSplit;
-	private int trainPercentage, numFolds;
+	private int trainPercentage, numFolds, unlabeledTrain;
 	
 	/**
 	 * classification
 	 *
 	 * @param original data
-	 *
 	 * @return filtered data
-	 *
 	 */
 	private void classify(Instances data) throws Exception {
 		System.out.println("\n2. Classification");
@@ -83,13 +81,8 @@ public class ClassificationWithConsoleInput {
 		
 		if(selectedClassifier != Classifiers.YATSI){
 			// build classifier
-			evaluation = new CollectiveEvaluation(test);
+			classifier.buildClassifier(train);
 		}else{
-			Scanner in = new Scanner(System.in);
-			System.out.println("Enter Percentag for unlabeled training data (0-100):");
-			int unlabeledTrain = in.nextInt();
-			in.close();
-			
 			//split train instances in labeled and unlabeled
 			int labeledSize = (int) Math.round(train.numInstances() * (100 - unlabeledTrain) / 100);
 			int unlabeledSize = train.numInstances() - labeledSize;
@@ -118,7 +111,7 @@ public class ClassificationWithConsoleInput {
 		NaiveBayes classifier = new NaiveBayes();
 		classifier.setUseKernelEstimator(true);
 		
-		System.out.println("#######################################   NaiveBayes     #######################################");
+		System.out.println("###############################   NaiveBayes     ###############################");
 		return classifier;
 	}
 	
@@ -128,7 +121,7 @@ public class ClassificationWithConsoleInput {
 	private Classifier getDecisionTable(){
 		DecisionTable classifier = new DecisionTable();
 		
-		System.out.println("#######################################   Decision Table     #######################################");
+		System.out.println("##########################   Decision Table     ##########################");
 		return classifier;
 	}
 	
@@ -145,7 +138,7 @@ public class ClassificationWithConsoleInput {
 		classifier.setSVMType(svmType);
 		classifier.setKernelType(kernelType);
 		
-		System.out.println("#######################################   SVM     #######################################");
+		System.out.println("###############################   SVM     ###############################");
 		return classifier;
 	}
 	
@@ -154,10 +147,11 @@ public class ClassificationWithConsoleInput {
 	 */
 	private Classifier getYATSI(){
 		YATSI classifier = new YATSI();
-		classifier.setKNN(15);
-//		classifier.setNoWeights(true);
 		
-		System.out.println("#######################################   YATSI     #######################################");
+		//configure YATSI
+		classifier.setKNN(15);
+		
+		System.out.println("###############################   YATSI     ###############################");
 		return classifier;
 	}
 	
@@ -166,7 +160,6 @@ public class ClassificationWithConsoleInput {
 	 *
 	 * @param original data
 	 * @return filtered data
-	 *
 	 */
 	private static Instances preprocessing(Instances data) throws Exception {
 		System.out.println("\n1. Preprocessing");
@@ -197,16 +190,18 @@ public class ClassificationWithConsoleInput {
 	 * constructor for new classification object
 	 *
 	 * @param selectedClassifier
+	 * @param unlabeledTrain TODO
 	 * @param percentage split or cross validation
 	 * @param amount train and test data
 	 * @param number of folds for crossvalidation
 	 *            
 	 */
-	public ClassificationWithConsoleInput(Classifiers selectedClassifier, boolean usePercentageSplit, int trainPercentage, int numFolds) {
+	public ClassificationWithConsoleInput(Classifiers selectedClassifier, boolean usePercentageSplit, int trainPercentage, int numFolds, int unlabeledTrain) {
 		this.selectedClassifier = selectedClassifier;
 		this.usePercentageSplit = usePercentageSplit;
 		this.trainPercentage = trainPercentage;
 		this.numFolds = numFolds;
+		this.unlabeledTrain = unlabeledTrain;
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -217,21 +212,28 @@ public class ClassificationWithConsoleInput {
 		System.out.println("1 - Naive Bayes\n2 - Decision Table\n3 - SVM\n4 - YATSI");
 		Scanner in = new Scanner(System.in);
 		int selectedClassifier = in.nextInt();
+		
 		System.out.println("Select Evaluation Method:");
 		System.out.println("1 - Percentage Split\n2 - Cross Validation");
 		int ups = in.nextInt();
-		int split = 0, folds = 0;
+		int split = 100, folds = 0;
 		if (ups == 1){
-			System.out.println("Select Percentage for Split (0-100):");
+			System.out.println("Enter percentage for split (0-100):");
 			split = in.nextInt();
 		}else{
-			System.out.println("Select Number of Folds:");
+			System.out.println("Enter number of folds:");
 			folds = in.nextInt();
+		}
+
+		//yatsi: need percentag for unlabeled train data
+		int unlabeledTrain = 0;
+		if(Classifiers.values()[selectedClassifier -1] == Classifiers.YATSI){
+			System.out.println("Enter percentage for unlabeled training data (0-100):");
+			unlabeledTrain = in.nextInt();
 		}
 		in.close();
 		
-		ClassificationWithConsoleInput myClassification = new ClassificationWithConsoleInput(Classifiers.values()[selectedClassifier -1], ups == 1 ? true: false, split, folds);
-		
+		ClassificationWithConsoleInput myClassification = new ClassificationWithConsoleInput(Classifiers.values()[selectedClassifier -1], ups == 1 ? true: false, split, folds, unlabeledTrain);
 		
 		// Reading data
 		System.out.println("\n0. Loading data");
