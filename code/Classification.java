@@ -82,7 +82,6 @@ public class Classification {
 		if(selectedClassifier != Classifiers.YATSI){
 			// build classifier
 			classifier.buildClassifier(train);
-			evaluation = new CollectiveEvaluation(test);
 		}else{
 			int labeledSize = (int) Math.round(train.numInstances() * trainPercentage/100);
 			int unlabeledSize = train.numInstances() - labeledSize;
@@ -232,10 +231,10 @@ public class Classification {
 //		myClassification1.classify(data_improved);
 //		myClassification2.classify(data_improved);
 //		myClassification3.classify(data_improved);
-//		myClassification4.classify(data_improved);
-//		myClassification5.classify(data_improved);
-		myClassification6.classify(data_improved);
-		myClassification7.classify(data_improved);
+		myClassification4.classify(data_improved);
+		myClassification5.classify(data_improved);
+//		myClassification6.classify(data_improved);
+//		myClassification7.classify(data_improved);
 	}
 
 	/**
