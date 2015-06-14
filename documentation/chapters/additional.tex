@@ -1,19 +1,25 @@
 \section{One Class Problem}
 \label{ocp}
 
-vieler klassifikatoren classifizierten alle instanzeni in eine klasse. dieses problem entsteht wenn die anzahl der instanzen der klassen sich stark unterscheided. um dieses problem zu lösen haben wir zwei anstätze verwendet die im folgen erläutert werden
-
+The results some classification algorithms put all test instances in one class. The problem arises from it that the number of instances between the classes varies greatly. To counteract this problem, we tried two approaches presented in the following.
 
 \subsection{Even Classes}
 \label{even}
-ansatz durch zusätzliches preprocessin\\
-bei diesem ansatz haben wir die anzahl der instanzen der jeweiligen klassen angeglichen. dafür haben wir als erstes die klasse mit der genigsten anzahl von instanzen ermittelt. danach haben wir bei den anderen klassen durch zufällige auswahl soviel instanzen gelöscht bis die klassen angeglichen waren.
+In this approach, we have adjusted the number of instances of each class. We have first determines the class with least number of instances. Then we have the other classes cleared by random selection so much instances until the classes were equalized.
 
-mit diesem neu erstellten datenset haben wir nun unsere classificationen erneut gemacht. jedoch steltle sich herraus dass nun die klassifizieren die klasse mit den ehemaligst wenigesten instanzen bevorzuge und nun alle instanzen darin klassifizierte. wir konnten also keine besseren klassifizierungs ergebnisse dabmit erzielen, weshalb wir dies nicht in section \nameref{classification} aufgeführt haben.
+With this newly created data set we have carried out our classifications again.
+Surprisingly, now showed the same problem. Except that now the characteristics, \textit{ \textgreater 30}, with the former fewest instances, get all test instances.
+Because of these poor results, we did not pursue this approach. This facilitates the task of classification.
+
 
 
 
 \subsection{2 Class Problem}
 \label{2class}
-ansatz durch veränderung des classification attribut und damit der classification//
 
+In this approach, we converted the 3-class problem to a 2-class problem.
+We have the attribute \textit{Readmitted} changed so that
+the smaller characteristics, \textit{ \textless 30} and \textit{ \textgreater 30}, were summarized.
+That reduced the expressiveness of the attribute. Now you can only make a statement about if the patient was readmitted or not.
+
+With this newly created data set we have carried out our classifications again. We achieved better results than with the original data set. As this is not compatible with the tasks description, we did not pursue this approach.
