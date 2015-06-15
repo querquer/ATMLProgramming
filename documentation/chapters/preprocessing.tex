@@ -1,16 +1,44 @@
 \section{Preprocessing}
 
+Analyzing the data leads to the conclusion that preprocessing steps have to be done. At first attributes are selected,
+ that are expected to yield the most improvement in classification accuracy. Then missing values are replaced by 
+ mean/mode values. Data was not preprocessed semantically. We did not feel to be able to judge on that without further 
+ background knowledge in the field of medicine.
+\subsection{Attributes}
 
-\subsection{attributes}
+In total 22 attributes were removed for the following reasons:
 
-remove of attributes
+\begin{enumerate}
+\item \textbf{Uniqueness}
+
+The first two attributes are unique IDs for the instances. These will not improve classification accuracy, but they 
+could make it worse.
+
+\item \textbf{Missing Values}
+
+Two of the attributes are having a lot of missing values: Patient weight has got 97\% missing, payer code 40\%. On that 
+account they were removed.
+
+\item \textbf{Unequal Distribution}
+
+A few attributes distributions are heavily biased towards one attribute value. For these attributes instances are having
+the same attribute value 99\% of the time. Needless to say they were removed too.
+
+\item \textbf{Single Attribute}
+
+Two of the attributes only have a single attribute value. Without divergence there is no classification, so these are 
+removed.
+\end{enumerate}
+
+\subsection{Instances}
+
+During preprocessing no instances were removed. Because the main attributes with missing values were removed, all 
+instances retained enough data to be of any value for building a classification model. Less than 1\% of the data was 
+missing. These missing values were replaced by means for numeric and modes for nominal data.
 
 
-\subsection{instances}
+\subsection{Conclusion}
 
-handling of missing values
-
-remove of instances?
-
-
-\subsection{conclusion}
+Affords were made to semantically split the data and analyze the value of different types of attributes. The removal of 
+such groups or single attributes did not lead to an observable improvement in accuracy, therefore all remaining 
+attributes were left in the training data.

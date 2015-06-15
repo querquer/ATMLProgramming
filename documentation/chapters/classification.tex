@@ -3,9 +3,9 @@
 
 The attribute to be classified from the data set is \textit{Readmitted} and exist in three characteristics, \textit{No},\textit{ \textless 30} and \textit{ \textgreater 30}. These values denote if the patient was readmitted in more or less than 30 days, and “No” for no record of readmission. \cite{OlmoMedicos}
 
-The distribution of the values in these three instances differs greatly from 54864 instances in \textit{No} and 35545 instances in \textit{ \textless 30} to 11357 instances in \textit{ \textgreater 30}. These unequal distribution led to a problem that is addressed in section \nameref{ocp}. 
+The distribution of the values in these three instances differs greatly from 54864 instances in \textit{No} and 35545 instances in \textit{ \textless 30} to 11357 instances in \textit{ \textgreater 30}. These unequal distribution leads to a problem that is addressed in section \nameref{ocp}. 
 
-When selecting classifiers The following criteria were important: performance, type specification from task description and feasibility.
+When selecting classifiers the following criteria were important: performance, type specification from task description and feasibility.
 In addition, many classifiers omitted because they could not solve a 3 classes problem.
 \\
 
@@ -13,13 +13,13 @@ Used classification algorithms:
 \begin{itemize}
 	\item[\textbullet] NaiveBayes, a supervised algorithm 
 	\item[\textbullet] DecisionTable, a supervised algorithm 
-	\item[\textbullet] LibSVM, a algorithm based on SVM from 
+	\item[\textbullet] LibSVM, a algorithm based on SVMs
 	\item[\textbullet] YATSI, a semi-supervised algorithm
 \end{itemize}
 
 
 
-For the evaluation of the trained classifiers, we used the two common evaluation methods:\\
+For the evaluation of the trained classifiers, we used two common evaluation methods:\\
 \textbf{Percentage Split} - used with a 50\%/50\% split\\
 \textbf{Cross-Validation} - used with 10 folds\\
 
@@ -41,13 +41,16 @@ By means of the presented classification and evaluation methods, we achieved the
 \end{tabular}}
 \label{table:resultsClassifiers}
 \end{table}
-63.3014 %
-62.3201 %
-
-explain the results\\
-kaum unterschied zwischen den evaluierungs methoden\\
 
 
+As seen in Table \ref{table:resultsClassifiers} there are no significant differences in the evaluation methods used. 
+\textit{Support Vector Machines} are outperforming the other classification algorithms, yielding a result just above 
+60\%. Surprisingly \textit{YATSI} is very close to a random classifier. At this point we haven't got an explanation for 
+it's poor performance. \textit{Naive Bayes} and \textit{Decision Tables} are performing better with around 57\%.
 
-During the review of the results we noticed, that some classification algorithms put all test instances in one class. The problem arises from it that the number of instances between the classes varies greatly. To counteract this problem, we tried two approaches presented in section \nameref{ocp}.
+
+
+During the review of the results we noticed, that some classification algorithms assigned the same label to every 
+instance. The problem arises from the unequal distribution of instances in the target class. To tackle this problem, 
+two approaches were validated presented in section \nameref{ocp}.
 

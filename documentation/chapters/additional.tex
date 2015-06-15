@@ -1,15 +1,20 @@
 \section{One Class Problem}
 \label{ocp}
 
-The results some classification algorithms put all test instances in one class. The problem arises from it that the number of instances between the classes varies greatly. To counteract this problem, we tried two approaches presented in the following.
+During experimental evaluation of different classifiers some classification algorithms assigned the same label to every 
+instance. The problem arises from an unequal distribution in the target class. To tackle this problem, we have tried 
+two approaches presented in the following.
 
 \subsection{Even Classes}
 \label{even}
-In this approach, we have adjusted the number of instances of each class. We have first determines the class with least number of instances. Then we have the other classes cleared by random selection so much instances until the classes were equalized.
+In this approach, we have adjusted the number of instances for each attribute value in the target class. We have first 
+determined the class with the least number of instances. Then we have removed instances from other classes until
+an equal distribution was obtained.
 
 With this newly created data set we have carried out our classifications again.
-Surprisingly, now showed the same problem. Except that now the characteristics, \textit{ \textgreater 30}, with the former fewest instances, get all test instances.
-Because of these poor results, we did not pursue this approach. This facilitates the task of classification.
+Surprisingly, the results were showing the same problem again. However the classifiers assigned the label 
+\textit{ \textgreater 30}, with the former fewest occurrences, to every instance.
+Because of these poor results, we did not pursue this approach any further.
 
 
 
@@ -18,8 +23,10 @@ Because of these poor results, we did not pursue this approach. This facilitates
 \label{2class}
 
 In this approach, we converted the 3-class problem to a 2-class problem.
-We have the attribute \textit{Readmitted} changed so that
-the smaller characteristics, \textit{ \textless 30} and \textit{ \textgreater 30}, were summarized.
-That reduced the expressiveness of the attribute. Now you can only make a statement about if the patient was readmitted or not.
+We have got the target attribute \textit{Readmitted} changed in order to summarize the characteristics with fewer 
+occurrences, \textit{ \textless 30} and \textit{ \textgreater 30}.
+The goal is to reduce the expressiveness of the attribute. With this change the only possible statement about the 
+readmission of a patient is whether it took place or not.
 
-With this newly created data set we have carried out our classifications again. We achieved better results than with the original data set. As this is not compatible with the tasks description, we did not pursue this approach.
+On this newly created data set we have carried out our classifications again, yielding better results than using the 
+original one. As this is not compatible with the tasks description, we did not pursue this approach.
