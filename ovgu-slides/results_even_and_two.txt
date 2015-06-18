@@ -1,0 +1,517 @@
+------------------------------------------------------------     data_even_improved     ------------------------------------------------------------
+2. Classification
+#######################################   NaiveBayes     #######################################
+-----------     Percentage Split     -----------
+
+Correctly Classified Instances        3635               53.3461 %
+Incorrectly Classified Instances      3179               46.6539 %
+Kappa statistic                          0.3006
+Mean absolute error                      0.3522
+Root mean squared error                  0.4476
+Relative absolute error                 79.2424 %
+Root relative squared error             94.9466 %
+Coverage of cases (0.95 level)          96.8154 %
+Mean rel. region size (0.95 level)      88.3182 %
+Total Number of Instances             6814     
+
+=== Confusion Matrix ===
+
+    a    b    c   <-- classified as
+ 1415  570  265 |    a = NO
+  741 1141  392 |    b = >30
+  547  664 1079 |    c = <30
+
+
+2. Classification
+#######################################   NaiveBayes     #######################################
+-----------     Cross Validation     -----------
+
+Correctly Classified Instances       18182               53.365  %
+Incorrectly Classified Instances     15889               46.635  %
+Kappa statistic                          0.3005
+Mean absolute error                      0.3519
+Root mean squared error                  0.4485
+Relative absolute error                 79.1777 %
+Root relative squared error             95.1345 %
+Coverage of cases (0.95 level)          96.657  %
+Mean rel. region size (0.95 level)      87.8518 %
+Total Number of Instances            34071     
+
+=== Confusion Matrix ===
+
+    a    b    c   <-- classified as
+ 6934 3075 1348 |    a = NO
+ 3583 5806 1968 |    b = >30
+ 2613 3302 5442 |    c = <30
+
+
+2. Classification
+#######################################   Decision Table     #######################################
+-----------     Percentage Split     -----------
+
+Correctly Classified Instances        3374               49.5157 %
+Incorrectly Classified Instances      3440               50.4843 %
+Kappa statistic                          0.2413
+Mean absolute error                      0.3993
+Root mean squared error                  0.4452
+Relative absolute error                 89.8541 %
+Root relative squared error             94.4484 %
+Coverage of cases (0.95 level)          99.8826 %
+Mean rel. region size (0.95 level)      98.7183 %
+Total Number of Instances             6814     
+
+=== Confusion Matrix ===
+
+    a    b    c   <-- classified as
+ 1600  543  176 |    a = NO
+  974 1011  253 |    b = >30
+  681  813  763 |    c = <30
+
+
+2. Classification
+#######################################   Decision Table     #######################################
+-----------     Cross Validation     -----------
+
+Correctly Classified Instances       16542               48.5516 %
+Incorrectly Classified Instances     17529               51.4484 %
+Kappa statistic                          0.2283
+Mean absolute error                      0.4033
+Root mean squared error                  0.4487
+Relative absolute error                 90.7336 %
+Root relative squared error             95.1808 %
+Coverage of cases (0.95 level)          99.8738 %
+Mean rel. region size (0.95 level)      98.3926 %
+Total Number of Instances            34071     
+
+=== Confusion Matrix ===
+
+    a    b    c   <-- classified as
+ 7705 2719  933 |    a = NO
+ 4981 4907 1469 |    b = >30
+ 3885 3542 3930 |    c = <30
+
+
+2. Classification
+#######################################   YATSI     #######################################
+-----------     Percentage Split     -----------
+
+Correctly Classified Instances        2988               43.8509 %
+Incorrectly Classified Instances      3826               56.1491 %
+Kappa statistic                          0.1584
+Mean absolute error                      0.4087
+Root mean squared error                  0.4706
+Relative absolute error                 91.9508 %
+Root relative squared error             99.8387 %
+Coverage of cases (0.95 level)          96.742  %
+Mean rel. region size (0.95 level)      94.4037 %
+Total Number of Instances             6814     
+
+=== Confusion Matrix ===
+
+    a    b    c   <-- classified as
+ 1222  730  276 |    a = NO
+  842 1027  433 |    b = >30
+  719  826  739 |    c = <30
+  
+  
+2. Classification
+#######################################   YATSI     #######################################
+-----------     Cross Validation     -----------
+
+Correctly Classified Instances       15242               44.736  %
+Incorrectly Classified Instances     18829               55.264  %
+Kappa statistic                          0.171 
+Mean absolute error                      0.4055
+Root mean squared error                  0.4678
+Relative absolute error                 91.2457 %
+Root relative squared error             99.2344 %
+Coverage of cases (0.95 level)          98.4708 %
+Mean rel. region size (0.95 level)      96.745  %
+Total Number of Instances            34071     
+
+=== Confusion Matrix ===
+
+    a    b    c   <-- classified as
+ 6161 3805 1391 |    a = NO
+ 4150 5353 1854 |    b = >30
+ 3519 4110 3728 |    c = <30
+ 
+ 
+ 2. Classification
+Zero Weights processed. Default weights will be used
+#######################################   SVM     #######################################
+.........*
+optimization finished, #iter = 9040
+nu = 0.9758028741076925
+obj = -17031.135735540367, rho = -0.19102610535620024
+nSV = 17755, nBSV = 17743
+........*
+optimization finished, #iter = 8874
+nu = 0.9681032309557629
+obj = -16437.172171649625, rho = 0.4005598087420174
+nSV = 17600, nBSV = 17587
+........*
+optimization finished, #iter = 8861
+nu = 0.967007550771517
+obj = -16654.65314409987, rho = 0.5965469563971401
+nSV = 17559, nBSV = 17541
+Total nSV = 27112
+-----------     Percentage Split     -----------
+
+Correctly Classified Instances        3032               44.4966 %
+Incorrectly Classified Instances      3782               55.5034 %
+Kappa statistic                          0.1684
+Mean absolute error                      0.37  
+Root mean squared error                  0.6083
+Relative absolute error                 83.2572 %
+Root relative squared error            129.0405 %
+Coverage of cases (0.95 level)          44.4966 %
+Mean rel. region size (0.95 level)      33.3333 %
+Total Number of Instances             6814     
+
+=== Confusion Matrix ===
+
+    a    b    c   <-- classified as
+ 1246  772  232 |    a = NO
+  907 1120  247 |    b = >30
+  797  827  666 |    c = <30
+
+
+2. Classification
+Zero Weights processed. Default weights will be used
+#######################################   SVM     #######################################
+........*
+optimization finished, #iter = 8839
+nu = 0.9664789255403662
+obj = -16576.23385647541, rho = 0.598840616327836
+nSV = 17495, nBSV = 17478
+.........*
+optimization finished, #iter = 9018
+nu = 0.9755367252843711
+obj = -17039.253104444662, rho = 0.20214179991955447
+nSV = 17768, nBSV = 17756
+........*
+optimization finished, #iter = 8995
+nu = 0.967389103862145
+obj = -16424.967483875836, rho = -0.4036471512894075
+nSV = 17624, nBSV = 17612
+Total nSV = 27107
+-----------     Cross Validation     -----------
+........*
+optimization finished, #iter = 8959
+nu = 0.9712831648888588
+obj = -16482.81262673683, rho = -0.4323491572156489
+nSV = 17659, nBSV = 17640
+........*
+optimization finished, #iter = 8934
+nu = 0.9661880541443305
+obj = -16649.94650878676, rho = -0.5649489425047561
+nSV = 17561, nBSV = 17547
+.........*
+optimization finished, #iter = 9021
+nu = 0.9763262698393869
+obj = -17011.927908282167, rho = -0.1458253336541183
+nSV = 17747, nBSV = 17735
+Total nSV = 27121
+........*
+optimization finished, #iter = 8884
+nu = 0.9670177022334471
+obj = -16667.877144930753, rho = 0.5918884685368658
+nSV = 17581, nBSV = 17564
+.........*
+optimization finished, #iter = 9010
+nu = 0.9750080017871896
+obj = -16988.36064697842, rho = 0.166458632724681
+nSV = 17727, nBSV = 17708
+........*
+optimization finished, #iter = 8949
+nu = 0.9683310979018239
+obj = -16403.10610403672, rho = -0.4254540425170254
+nSV = 17604, nBSV = 17584
+Total nSV = 27106
+........*
+optimization finished, #iter = 8958
+nu = 0.9683882386132204
+obj = -16690.007551609826, rho = -0.646860682422597
+nSV = 17606, nBSV = 17589
+........*
+optimization finished, #iter = 8942
+nu = 0.9668629573497317
+obj = -16373.49800976366, rho = -0.4356554430416483
+nSV = 17576, nBSV = 17562
+........*
+optimization finished, #iter = 8993
+nu = 0.9728696266611255
+obj = -16957.605920217717, rho = 0.17252693233952052
+nSV = 17686, nBSV = 17672
+Total nSV = 27111
+........*
+optimization finished, #iter = 8939
+nu = 0.9672615579667704
+obj = -16681.72470539664, rho = -0.5648536982360665
+nSV = 17583, nBSV = 17572
+........*
+optimization finished, #iter = 8959
+nu = 0.9714248619145452
+obj = -16489.766481196657, rho = -0.43770484953886946
+nSV = 17662, nBSV = 17641
+.........*
+optimization finished, #iter = 9008
+nu = 0.9772918719038023
+obj = -17054.663393220555, rho = 0.08580677565734258
+nSV = 17766, nBSV = 17751
+Total nSV = 27132
+........*
+optimization finished, #iter = 8987
+nu = 0.9741196200540977
+obj = -16991.8721924664, rho = 0.09889152843529776
+nSV = 17705, nBSV = 17694
+........*
+optimization finished, #iter = 8877
+nu = 0.9672414569020604
+obj = -16670.965559538872, rho = 0.5606622957752784
+nSV = 17586, nBSV = 17564
+........*
+optimization finished, #iter = 8873
+nu = 0.9690818885492217
+obj = -16423.407413793426, rho = 0.4078414193425552
+nSV = 17616, nBSV = 17604
+Total nSV = 27116
+
+Correctly Classified Instances       15230               44.7008 %
+Incorrectly Classified Instances     18841               55.2992 %
+Kappa statistic                          0.1705
+Mean absolute error                      0.3687
+Root mean squared error                  0.6072
+Relative absolute error                 82.9488 %
+Root relative squared error            128.8013 %
+Coverage of cases (0.95 level)          44.7008 %
+Mean rel. region size (0.95 level)      33.3333 %
+Total Number of Instances            34071     
+
+=== Confusion Matrix ===
+
+    a    b    c   <-- classified as
+ 5905 4249 1203 |    a = NO
+ 4172 5859 1326 |    b = >30
+ 3510 4381 3466 |    c = <30
+
+ 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!     diabetic_data_two_class_improved     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+2. Classification
+#######################################   NaiveBayes     #######################################
+-----------     Percentage Split     -----------
+
+Correctly Classified Instances       12774               62.7622 %
+Incorrectly Classified Instances      7579               37.2378 %
+Kappa statistic                          0.2457
+Mean absolute error                      0.4256
+Root mean squared error                  0.4793
+Relative absolute error                 85.6257 %
+Root relative squared error             96.1368 %
+Coverage of cases (0.95 level)          99.7445 %
+Mean rel. region size (0.95 level)      98.3663 %
+Total Number of Instances            20353     
+
+=== Confusion Matrix ===
+
+    a    b   <-- classified as
+ 7621 3332 |    a = NO
+ 4247 5153 |    b = YES
+
+
+2. Classification
+#######################################   NaiveBayes     #######################################
+-----------     Cross Validation     -----------
+
+Correctly Classified Instances       63729               62.6231 %
+Incorrectly Classified Instances     38037               37.3769 %
+Kappa statistic                          0.243 
+Mean absolute error                      0.4252
+Root mean squared error                  0.4798
+Relative absolute error                 85.5598 %
+Root relative squared error             96.2541 %
+Coverage of cases (0.95 level)          99.774  %
+Mean rel. region size (0.95 level)      98.3801 %
+Total Number of Instances           101766     
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 37908 16956 |     a = NO
+ 21081 25821 |     b = YES
+
+
+2. Classification
+#######################################   Decision Table     #######################################
+-----------     Percentage Split     -----------
+
+Correctly Classified Instances       12701               62.4036 %
+Incorrectly Classified Instances      7652               37.5964 %
+Kappa statistic                          0.2262
+Mean absolute error                      0.4518
+Root mean squared error                  0.4757
+Relative absolute error                 90.9764 %
+Root relative squared error             95.4579 %
+Coverage of cases (0.95 level)         100      %
+Mean rel. region size (0.95 level)      99.3097 %
+Total Number of Instances            20353     
+
+=== Confusion Matrix ===
+
+    a    b   <-- classified as
+ 8518 2497 |    a = NO
+ 5155 4183 |    b = YES
+
+
+2. Classification
+#######################################   Decision Table     #######################################
+-----------     Cross Validation     -----------
+
+Correctly Classified Instances       63675               62.57   %
+Incorrectly Classified Instances     38091               37.43   %
+Kappa statistic                          0.2316
+Mean absolute error                      0.4517
+Root mean squared error                  0.4755
+Relative absolute error                 90.8901 %
+Root relative squared error             95.3952 %
+Coverage of cases (0.95 level)          99.9931 %
+Mean rel. region size (0.95 level)      99.2733 %
+Total Number of Instances           101766     
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 42193 12671 |     a = NO
+ 25420 21482 |     b = YES
+
+
+2. Classification
+#######################################   YATSI     #######################################
+-----------     Percentage Split     -----------
+
+Correctly Classified Instances       11537               56.6845 %
+Incorrectly Classified Instances      8816               43.3155 %
+Kappa statistic                          0.1198
+Mean absolute error                      0.4642
+Root mean squared error                  0.5085
+Relative absolute error                 93.3626 %
+Root relative squared error            101.9427 %
+Coverage of cases (0.95 level)          99.3908 %
+Mean rel. region size (0.95 level)      98.811  %
+Total Number of Instances            20353     
+
+=== Confusion Matrix ===
+
+    a    b   <-- classified as
+ 7267 3629 |    a = NO
+ 5187 4270 |    b = YES
+
+ 
+2. Classification
+#######################################   YATSI     #######################################
+-----------     Cross Validation     -----------
+
+Correctly Classified Instances       57887               56.8825 %
+Incorrectly Classified Instances     43879               43.1175 %
+Kappa statistic                          0.1216
+Mean absolute error                      0.4622
+Root mean squared error                  0.5072
+Relative absolute error                 93.0047 %
+Root relative squared error            101.7518 %
+Coverage of cases (0.95 level)          99.602  %
+Mean rel. region size (0.95 level)      99.1815 %
+Total Number of Instances           101766     
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 36879 17985 |     a = NO
+ 25894 21008 |     b = YES
+
+ 
+2. Classification
+Zero Weights processed. Default weights will be used
+#######################################   SVM     #######################################
+....................*
+optimization finished, #iter = 20160
+nu = 0.8913318040708919
+obj = -35209.9651121637, rho = -0.3350443804144025
+nSV = 36327, nBSV = 36236
+Total nSV = 36327
+-----------     Percentage Split     -----------
+
+Correctly Classified Instances        6062               59.5657 %   auf 50% der Daten
+Incorrectly Classified Instances      4115               40.4343 %
+Kappa statistic                          0.1442
+Mean absolute error                      0.4043
+Root mean squared error                  0.6359
+Relative absolute error                 81.414  %
+Root relative squared error            127.6041 %
+Coverage of cases (0.95 level)          59.5657 %
+Mean rel. region size (0.95 level)      50      %
+Total Number of Instances            10177     
+
+=== Confusion Matrix ===
+
+    a    b   <-- classified as
+ 4949  556 |    a = NO
+ 3559 1113 |    b = YES
+ 
+ 2. Classification
+Zero Weights processed. Default weights will be used
+#######################################   SVM     #######################################
+.....................*
+optimization finished, #iter = 21006
+nu = 0.893679256448421
+obj = -35300.168159272944, rho = 0.30703328985793804
+nSV = 36422, nBSV = 36327
+Total nSV = 36422
+-----------     Cross Validation     -----------
+.....................*
+optimization finished, #iter = 21021
+nu = 0.8932157580111579
+obj = -35274.99839333031, rho = 0.5103000522505745
+nSV = 36409, nBSV = 36313
+Total nSV = 36409
+....................*
+optimization finished, #iter = 20980
+nu = 0.8917633347173146
+obj = -35219.24630461978, rho = 0.29102264577278353
+nSV = 36344, nBSV = 36256
+Total nSV = 36344
+....................*
+optimization finished, #iter = 20077
+nu = 0.8924761267280737
+obj = -35214.2254983406, rho = -0.30524746744541187
+nSV = 36380, nBSV = 36277
+Total nSV = 36380
+...................*
+optimization finished, #iter = 19998
+nu = 0.8899298814766524
+obj = -35159.20639260216, rho = -0.5747292632429587
+nSV = 36272, nBSV = 36182
+Total nSV = 36272
+....................*
+optimization finished, #iter = 20191
+nu = 0.892931510649543
+obj = -35252.1306792701, rho = -0.4064436665357486
+nSV = 36391, nBSV = 36296
+Total nSV = 36391
+
+Correctly Classified Instances       30302               59.5523 %  auf 50% der Daten
+Incorrectly Classified Instances     20581               40.4477 %
+Kappa statistic                          0.1428
+Mean absolute error                      0.4045
+Root mean squared error                  0.636 
+Relative absolute error                 81.4379 %
+Root relative squared error            127.6228 %
+Coverage of cases (0.95 level)          59.5523 %
+Mean rel. region size (0.95 level)      50      %
+Total Number of Instances            50883     
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 24953  2565 |     a = NO
+ 18016  5349 |     b = YES
